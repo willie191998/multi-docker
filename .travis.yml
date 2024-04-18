@@ -6,7 +6,7 @@ services:
 before_install:
   - docker build -t wiley19/complex-test -f ./client/Dockerfile.dev ./client
 
-scripts:
+script:
   - docker run -e CI=true wiley19/complex-test npm run test
 
 after_success:
@@ -15,9 +15,21 @@ after_success:
   - docker build -t wiley19/multi-server ./server
   - docker build -t wiley19/multi-worker ./worker
 
-  - echo "$Docker-Password" | docker login -u "$Docker-Email" --password-stdin
+  - echo "$Docker_Password" | docker login -u "$Docker_Email" --password-stdin
 
   - docker push wiley19/multi-client
   - docker push wiley19/multi-nginx
   - docker push wiley19/multi-server
   - docker push wiley19/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-2"
+  app: "multi-docker"
+  env: "Multi-docker-env"
+  bucket_name: "elasticbeanstalk-eu-west-2-959400139144"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id: "$AccessKey"
+  secret_access_Key: "$SecretAccessKey"
