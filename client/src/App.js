@@ -9,6 +9,14 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <div class="row">
+          <Link class="col-6" to="/">Home</Link>
+          <Link class="col-6" to="/otherpage">Other Page</Link>
+        </div>
+        <div>
+          <Route exact path="/" component={Fib} />
+          <Route path="/otherpage" component={OtherPage} />
+        </div>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <a
@@ -17,15 +25,10 @@ function App() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Please, Learn React Now ...
+            React, Docker, ElasticBeanStalk, Travis CI
           </a>
-          <Link to="/">Home</Link>
-          <Link to="/otherpage">Other Page</Link>
         </header>
-        <div>
-          <Route exact path="/" component={Fib} />
-          <Route path="/otherpage" component={OtherPage} />
-        </div>
+        <p>Deployed multiple docker containers on AWS ElasticBeanStalk, from GitHub to Travis CI, to Docker Hub then to AWS EB</p>
       </div>
     </Router>
   );
