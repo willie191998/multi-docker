@@ -10,7 +10,7 @@ script:
   - docker run -e CI=true wiley19/complex-test npm run test
 
 after_success:
-  - docker build -t wiley19/milti-client ./client
+  - docker build -t wiley19/multi-client ./client
   - docker build -t wiley19/multi-nginx ./nginx
   - docker build -t wiley19/multi-server ./server
   - docker build -t wiley19/multi-worker ./worker
