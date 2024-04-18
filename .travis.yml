@@ -6,7 +6,7 @@ services:
 before_install:
   - docker build -t wiley19/complex-test -f ./client/Dockerfile.dev ./client
 
-script:
+scripts:
   - docker run -e CI=true wiley19/complex-test npm run test
 
 after_success:
@@ -14,3 +14,10 @@ after_success:
   - docker build -t wiley19/multi-nginx ./nginx
   - docker build -t wiley19/multi-server ./server
   - docker build -t wiley19/multi-worker ./worker
+
+  - echo "$Docker-Password" | docker login -u "$Docker-Email" --password-stdin
+
+  - docker push wiley19/multi-client
+  - docker push wiley19/multi-nginx
+  - docker push wiley19/multi-server
+  - docker push wiley19/multi-worker
